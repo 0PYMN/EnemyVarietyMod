@@ -151,7 +151,7 @@ namespace PYMN6
                 ConfigC.LoadAllValues();
                 foreach (string key in new List<string>(ConfigC.SaveConfigNames.Keys))
                 {
-                    if (!ConfigC.Check(key) && EnemyExists(key))
+                    if (ConfigC.Check(key) && EnemyExists(key))
                     {
                         DisabledEnemies.Add(LoadedAssetsHandler.GetEnemy(key));
                         Debug.Log(ColorLog.Magenta + "disabling enemy: " + key + ColorLog.End);
