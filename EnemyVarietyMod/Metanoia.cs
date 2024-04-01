@@ -31,9 +31,9 @@ namespace PYMN6
         {
             EnemyCombatBundle ret = null;
             ret = orig(self);
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
-                for (int b = 0; b < 1;  b++)
+                for (int b = 0; b < 2;  b++)
                 {
                     for (int d = 0; d < 1000; d++)
                     {
@@ -63,8 +63,8 @@ namespace PYMN6
                         }
                         if (d == 500) Debug.LogWarning("disable checked 500 times");
                         if (d == 900) Debug.LogWarning("disable checked 900 times");
-                        ret = orig(self);
                         if (d >= 999 && !Seraphine.DisableCheck(ret, false)) Debug.LogWarning("disable check ignored");
+                        else ret = orig(self);
                     }
                     if (!ConfigA.Check("OptionB"))
                     {
@@ -76,8 +76,8 @@ namespace PYMN6
                         //Debug.Log(ColorLog.Green + "unit pass" + ColorLog.End);
                         break;
                     }
-                    ret = orig(self);
-                    if (b >= 0 && !Seraphine.UnitCheck(ret, false)) Debug.LogWarning("unit check ignored.");
+                    if (b >= 1) Debug.LogWarning("unit check ignored.");
+                    else ret = orig(self);
                 }
                 if (!ConfigA.Check("OptionA"))
                 {
@@ -89,8 +89,8 @@ namespace PYMN6
                     //Debug.Log(ColorLog.Green + "sign pass" + ColorLog.End);
                     break;
                 }
-                ret = orig(self);
-                if (i >= 2 && !Seraphine.SignCheck(ret, false)) Debug.LogWarning("sign check ignored");
+                if (i >= 3) Debug.LogWarning("sign check ignored");
+                else ret = orig(self);
             }
             if (ret == null) throw new Exception("enemy bundle failed (in EnemyEncounterSelectorSO.GetEnemyBundle). message hopefully will not be seen due to try catch.");
             if (!Seraphine.UsedGroups.Contains(ret._bundleSignType))

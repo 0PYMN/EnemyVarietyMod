@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PYMN6
 {
-    [BepInPlugin("000.EnemyVarietyMod", "Enemy Encounter Variety Mod", "1.0.1")]
+    [BepInPlugin("000.EnemyVarietyMod", "Enemy Encounter Variety Mod", "1.0.2")]
     public class Class1 : BaseUnityPlugin
     {
         public bool SHUTUP = false;
