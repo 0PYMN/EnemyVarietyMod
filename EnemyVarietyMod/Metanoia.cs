@@ -30,7 +30,6 @@ namespace PYMN6
         public static EnemyCombatBundle GetEnemyBundle(Func<EnemyEncounterSelectorSO, EnemyCombatBundle> orig, EnemyEncounterSelectorSO self)
         {
             EnemyCombatBundle ret = null;
-            ret = orig(self);
             for (int i = 0; i < 4; i++)
             {
                 for (int b = 0; b < 2;  b++)
@@ -39,6 +38,7 @@ namespace PYMN6
                     {
                         for (int h = 0; h < 1000; h++)
                         {
+                            ret = orig(self);
                             try
                             {
                                 if (Seraphine.NullCheck(ret)) 
@@ -64,33 +64,30 @@ namespace PYMN6
                         if (d == 500) Debug.LogWarning("disable checked 500 times");
                         if (d == 900) Debug.LogWarning("disable checked 900 times");
                         if (d >= 999 && !Seraphine.DisableCheck(ret, false)) Debug.LogWarning("disable check ignored");
-                        else ret = orig(self);
                     }
                     if (!ConfigA.Check("OptionB"))
                     {
                         //Debug.Log(ColorLog.Cyan + "unit variety inactive" + ColorLog.End);
                         break;
                     }
-                    else if (Seraphine.UnitCheck(ret))
+                    else if (Seraphine.UnitCheck(ret, !(b >= 1)))
                     {
                         //Debug.Log(ColorLog.Green + "unit pass" + ColorLog.End);
                         break;
                     }
                     if (b >= 1) Debug.LogWarning("unit check ignored.");
-                    else ret = orig(self);
                 }
                 if (!ConfigA.Check("OptionA"))
                 {
                     //Debug.Log(ColorLog.Cyan + "encouner variety inactive" + ColorLog.End);
                     break;
                 }
-                else if (Seraphine.SignCheck(ret))
+                else if (Seraphine.SignCheck(ret, !(i >= 3)))
                 {
                     //Debug.Log(ColorLog.Green + "sign pass" + ColorLog.End);
                     break;
                 }
                 if (i >= 3) Debug.LogWarning("sign check ignored");
-                else ret = orig(self);
             }
             if (ret == null) throw new Exception("enemy bundle failed (in EnemyEncounterSelectorSO.GetEnemyBundle). message hopefully will not be seen due to try catch.");
             if (!Seraphine.UsedGroups.Contains(ret._bundleSignType))
