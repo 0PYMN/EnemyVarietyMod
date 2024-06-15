@@ -90,12 +90,12 @@ namespace PYMN6
                 if (i >= 3) Debug.LogWarning("sign check ignored");
             }
             if (ret == null) throw new Exception("enemy bundle failed (in EnemyEncounterSelectorSO.GetEnemyBundle). message hopefully will not be seen due to try catch.");
-            if (!Seraphine.UsedGroups.Contains(ret._bundleSignType))
+            if (!Seraphine.UsedGroups.Contains(ret._BundleSignID))
             {
-                Debug.Log("new used sign type " + ret._bundleSignType.ToString());
-                Seraphine.UsedGroups.Add(ret._bundleSignType);
+                Debug.Log("new used sign type " + ret._BundleSignID.ToString());
+                Seraphine.UsedGroups.Add(ret._BundleSignID);
             }
-            else Debug.LogWarning("reusing sign type " + ret._bundleSignType);
+            else Debug.LogWarning("reusing sign type " + ret._BundleSignID);
             List<EnemySO> reuse = new List<EnemySO>();
             foreach (EnemyBundleData enemy in ret.Enemies)
             {
@@ -128,11 +128,11 @@ namespace PYMN6
     }
     public static class Seraphine
     {
-        public static List<SignType> UsedGroups;
+        public static List<string> UsedGroups;
         public static List<EnemySO> UsedEnemies;
         public static void Clear()
         {
-            if (UsedGroups == null) UsedGroups = new List<SignType>();
+            if (UsedGroups == null) UsedGroups = new List<string>();
             if (UsedEnemies == null) UsedEnemies = new List<EnemySO>();
             UsedGroups.Clear();
             UsedEnemies.Clear();
@@ -169,11 +169,11 @@ namespace PYMN6
 
         public static bool SignCheck(EnemyCombatBundle bundle, bool read = true)
         {
-            if (UsedGroups == null) UsedGroups = new List<SignType>();
-            if (UsedGroups.Contains(bundle._bundleSignType))
+            if (UsedGroups == null) UsedGroups = new List<string>();
+            if (UsedGroups.Contains(bundle._BundleSignID))
             {
-                if (read) Debug.Log(ColorLog.Green + "Variety: skipping sign type " + ColorLog.End + bundle._bundleSignType.ToString());
-                else Debug.LogWarning("Variety: cannot skip sign type " + bundle._bundleSignType.ToString());
+                if (read) Debug.Log(ColorLog.Green + "Variety: skipping sign type " + ColorLog.End + bundle._BundleSignID.ToString());
+                else Debug.LogWarning("Variety: cannot skip sign type " + bundle._BundleSignID.ToString());
                 return false;
             }
             //UsedGroups.Add(bundle._bundleSignType);
